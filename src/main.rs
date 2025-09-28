@@ -52,7 +52,7 @@ fn build_ui(app: &Application) {
 
     // --- 3. Add Content ---
     let label = Label::builder()
-        .label("Hello World from Rust!")
+        .label("Hello World from Rust!\nPress Escape to close.")
         .build();
 
     label.add_css_class("custom-label");
