@@ -1,10 +1,15 @@
 use gtk4::gdk::{Display, prelude::*};
 use gtk4::{Application, ApplicationWindow, Label, CssProvider}; 
+use gtk4::prelude::WidgetExt;
 use gtk4::prelude::GtkWindowExt; 
 
 const CSS: &str = r#"
 window.background {
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+.custom-label {
+  color: green;
 }
 "#;
 
@@ -45,6 +50,8 @@ fn build_ui(app: &Application) {
     let label = Label::builder()
         .label("Hello World from Rust!")
         .build();
+
+    label.add_css_class("custom-label");
 
     window.set_child(Some(&label));
 
