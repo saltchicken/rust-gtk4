@@ -1,8 +1,7 @@
 use gtk4::gdk::{Display, Key, prelude::*};
 use gtk4::EventControllerKey;
-// NOTE: Grouping and cleaning up imports to fix the token error and warnings.
 use gtk4::{Application, ApplicationWindow, CssProvider, Button, glib, Builder};
-use gtk4::prelude::{WidgetExt, GtkWindowExt, ButtonExt}; // ButtonExt is required for connect_clicked
+use gtk4::prelude::{WidgetExt, GtkWindowExt, ButtonExt};
 
 // 1. Embed the GtkBuilder XML file
 const UI_FILE: &str = include_str!("./grid.ui");
@@ -10,11 +9,11 @@ const UI_FILE: &str = include_str!("./grid.ui");
 // 2. Define the CSS
 const CSS: &str = r#"
 window.background {
-  background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .custom-label {
-  color: green;
+    color: green;
 }
 "#;
 
