@@ -1,6 +1,8 @@
 use gtk4::gdk::{Display, prelude::*};
-use gtk4::{Application, ApplicationWindow, Label, CssProvider}; 
+use gtk4::{Application, ApplicationWindow, Label, CssProvider, Button, Box as GtkBox, Orientation}; 
 use gtk4::prelude::WidgetExt;
+use gtk4::prelude::BoxExt;
+use gtk4::prelude::ButtonExt;
 use gtk4::prelude::GtkWindowExt; 
 
 const CSS: &str = r#"
@@ -53,7 +55,25 @@ fn build_ui(app: &Application) {
 
     label.add_css_class("custom-label");
 
-    window.set_child(Some(&label));
+    let button = Button::builder()
+        .label("Click me!")
+        .build();
+
+    button.connect_clicked(|_| {
+        println!("Button clicked!");
+    });
+
+    let container = GtkBox::builder()
+        .orientation(Orientation::Vertical)
+        .spacing(10)
+        .halign(gtk4::Align::Center)
+        .valign(gtk4::Align::Center)
+        .build();
+
+    container.append(&label);
+    container.append(&button);
+
+    window.set_child(Some(&container));
 
     // --- 4. Show the Window ---
     window.present();
