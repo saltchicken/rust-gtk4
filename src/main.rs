@@ -1,9 +1,11 @@
-use gtk4::gdk::{Display, prelude::*};
+use gtk4::gdk::{Display, Key, prelude::*};
+use gtk4::EventControllerKey;
 use gtk4::{Application, ApplicationWindow, Label, CssProvider, Button, Box as GtkBox, Orientation}; 
 use gtk4::prelude::WidgetExt;
 use gtk4::prelude::BoxExt;
 use gtk4::prelude::ButtonExt;
-use gtk4::prelude::GtkWindowExt; 
+use gtk4::prelude::GtkWindowExt;
+use gtk4::glib;
 
 const CSS: &str = r#"
 window.background {
@@ -75,6 +77,19 @@ fn build_ui(app: &Application) {
 
     window.set_child(Some(&container));
 
-    // --- 4. Show the Window ---
+        // --- 4. Handle Keyboard Events ---
+    let key_controller = EventControllerKey::new();
+
+    key_controller.connect_key_released(glib::clone!(@weak window => move |_, key, _, _| {
+        if key == Key::Escape {
+            window.close();
+        }
+    }));
+
+    // window.set_focusable(true);
+    // window.grab_focus();
+    window.add_controller(key_controller);
+
+    // --- 5. Show the Window ---
     window.present();
 }
